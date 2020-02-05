@@ -1,6 +1,6 @@
 # vmware-fusion
 
-[![Build Status](https://cloud.drone.io/api/badges/machippie/vmware-fusion/status.svg)](https://cloud.drone.io/machippie/google-chrome)
+[![Build Status](https://cloud.drone.io/api/badges/machippie/vmware-fusion/status.svg)](https://cloud.drone.io/machippie/vmware-fusion)
 
 Ansible role to configure vmware-fusion.
 
