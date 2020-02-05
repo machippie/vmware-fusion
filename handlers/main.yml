@@ -1,0 +1,16 @@
+# Standards: 0.1
+---
+- name: Kill vmware-fusion
+  command: killall VMware\ Fusion
+  register: vmware_fusion_kill
+  failed_when: vmware_fusion_kill.rc != 0 and "No matching processes belonging to you were found" not in vmware_fusion_kill.stderr
+  become: "{{ (vmware_fusion_user != ansible_user_id) | bool }}"
+  become_user: "{{ vmware_fusion_user }}"
+
+- name: Start vmware-fusion
+  when: vmware_fusion_started
+  command: open -j /Applications/VMware\ Fusion.app
+  become: "{{ (vmware_fusion_user != ansible_user_id) | bool }}"
+  become_user: "{{ vmware_fusion_user }}"
+
+...

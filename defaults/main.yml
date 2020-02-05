@@ -1,0 +1,9 @@
+# Standards: 0.1
+---
+# @var vmware_fusion_user:description: User to run user-specific commands
+# @var vmware_fusion_user:value: vmware_fusion_user | default(homebrew_user) | default(ansible_user_id)
+# vmware_fusion_user:
+
+vmware_fusion_machines: []
+
+...

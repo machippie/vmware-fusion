@@ -1,0 +1,30 @@
+# Standards: 0.1
+---
+- name: Fact vmware-fusion user
+  set_fact:
+    vmware_fusion_user: "{{ vmware_fusion_user | default(homebrew_user) | default(ansible_user_id) }}"
+  tags:
+    - vmware-fusion
+
+- name: Install required package
+  ignore_errors: True
+  homebrew_cask:
+    name: vmware-fusion
+    greedy: True
+    options: appdir=/Applications
+    accept_external_apps: False
+    state: upgraded
+  become: "{{ (vmware_fusion_user != ansible_user_id) | bool }}"
+  become_user: "{{ vmware_fusion_user }}"
+  tags:
+    - vmware-fusion
+
+- name: Remove quarantine flag
+  register: vmware_fusion_quarantine
+  failed_when: vmware_fusion_quarantine.rc != 0 and "No such xattr" not in vmware_fusion_quarantine.stderr
+  changed_when: vmware_fusion_quarantine.rc == 0
+  command: xattr -d com.apple.quarantine /Applications/VMware\ Fusion.app
+  tags:
+    - vmware-fusion
+
+...
